@@ -39,3 +39,21 @@ there are tow types of users in this application.
  - /users
  - /account 
  - /verify (only for email verification )
+
+## Website: 🕸
+
+https://user-management-mern.vercel.app
+
+## Mail and Password: 💌🔐
+
+**Admin**
+
+- Mail: `eocsxnlqekfme@candassociates.com`
+- Passwd: `1234`
+
+**User**
+
+- Mail: `loaielpt@candassociates.com`
+- Passwd: `1234`
+
+
