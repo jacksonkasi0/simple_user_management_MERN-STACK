@@ -5,6 +5,7 @@ const Users = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    let timerId;
     const fetchUsers = async () => {
       try {
         const { data } = await axios.get('/api/user/userData', {
@@ -20,10 +21,12 @@ const Users = () => {
       }
     };
     fetchUsers();
+    return () => {
+      clearTimeout(timerId);
+    }
   }, []);
 
   console.log(users);
-
 
   return (
     <div>

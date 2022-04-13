@@ -4,10 +4,12 @@ import { handleUser } from '../store/action/user';
 import { Outlet, Navigate } from 'react-router-dom';
 
 const PrivateRoute = () => {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
   const [isToken, setIsToken] = useState(false);
+
+  const dispatch = useDispatch();
+
+  console.log(user);
 
   useEffect(() => {
     if (!user) {
@@ -18,8 +20,8 @@ const PrivateRoute = () => {
     }
     setTimeout(() => {
       setIsToken(true);
-    }, 1000);
-  }, []); 
+    }, 2000);
+  }, []);
 
   if (isToken) {
     return user ? <Outlet /> : <Navigate to='/login' />;
@@ -27,7 +29,7 @@ const PrivateRoute = () => {
 
   return (
     <div>
-      <h1>Loading...</h1>
+      <h1>Loading....</h1>
     </div>
   );
 };

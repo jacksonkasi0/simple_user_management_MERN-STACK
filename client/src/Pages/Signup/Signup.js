@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { handleUser, setUser } from '../../store/action/user';
 import axios from '../../axios';
+import { useSelector } from 'react-redux';
 
 const Signup = () => {
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth.user.user);
 
   const [userInput, setUserInput] = useState({
     name: '',
@@ -15,14 +14,7 @@ const Signup = () => {
     address: '',
   });
 
-  const handleChange = (e) => {
-    setUserInput({
-      ...userInput,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSignUp = async () => {
+  const handleSignup = async () => {
     if (
       !userInput.name ||
       !userInput.email ||
@@ -31,20 +23,19 @@ const Signup = () => {
       !userInput.phoneNo ||
       !userInput.address
     ) {
-      return alert('Please fill all the fields');
+      alert('Enter all the details');
+      return;
     }
-
     try {
       const { data } = await axios.post('/api/user/signup', userInput, {
         headers: {
           authorization: localStorage.getItem('loginToken'),
         },
       });
-      alert(data.message);
-    } catch (err) {
-      alert(err.message);
+      alert(data.msg);
+    } catch (error) {
+      alert(error.message);
     }
-
     setUserInput({
       name: '',
       email: '',
@@ -55,68 +46,76 @@ const Signup = () => {
     });
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserInput((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   if (user.loginType !== 1) {
-    return <div>404 page not found</div>;
+    return (
+      <div>
+        <h1>404 Page not found</h1>
+      </div>
+    );
   }
 
   return (
-    <div className='signUp'>
-      <div className='container'>
+    <div>
+      <div>
         <h1>Signup</h1>
-        <p>{user.loginType}</p>
-        <div className='signUpContainer'>
+        <div>
           <input
-            type='text'
             name='name'
             value={userInput.name}
-            placeholder='Enter your Name'
+            type='text'
+            placeholder='Enter your name'
             onChange={handleChange}
           />
           <br />
           <input
-            type='text'
             name='email'
             value={userInput.email}
-            placeholder='Enter your Email'
+            type='email'
+            placeholder='Enter your email'
             onChange={handleChange}
           />
           <br />
           <input
-            type='password'
             name='password'
             value={userInput.password}
-            placeholder='Enter your Password'
+            type='password'
+            placeholder='Enter your password'
             onChange={handleChange}
           />
           <br />
           <input
-            type='text'
             name='role'
             value={userInput.role}
-            placeholder='Enter your job Role'
+            type='text'
+            placeholder='Enter your job role'
             onChange={handleChange}
           />
           <br />
-
           <input
-            type='number'
             name='phoneNo'
             value={userInput.phoneNo}
-            placeholder='Enter your Phone No'
+            type='number'
+            placeholder='Enter your mobile number'
             onChange={handleChange}
           />
           <br />
-
           <input
-            type='text'
             name='address'
             value={userInput.address}
-            placeholder='Enter your Address'
+            type='text'
+            placeholder='Enter your address'
             onChange={handleChange}
           />
           <br />
-
-          <button onClick={handleSignUp}>Signup</button>
+          <button onClick={handleSignup}>Signup</button>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ export const handleUser = (token) => {
           authorization: token,
         },
       });
-      dispatch(setUser(data.user));
+      dispatch(setUser(data));
     } catch (err) {
       console.log(err);
     }

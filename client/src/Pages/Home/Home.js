@@ -9,24 +9,33 @@ const Home = () => {
 
   const logout = () => {
     localStorage.removeItem('loginToken');
-    // window.location.reload();
+    window.location.reload();
   };
 
   const handleLogin = () => {
     navigate('/login');
   };
 
+  const token = localStorage.getItem('loginToken');
+
   return (
     <div>
       <h1>Home</h1>
-      {user.user !== null ? (
+      {!token ? (
+        <button onClick={handleLogin}>Login</button>
+      ) : (
         <div>
-          <a href="/users">users</a>
+          <a href='/users'>Users</a>
+          <br />
+          <br />
+          <a href='/signup'>Signup</a>
+          <br />
+          <br />
+          <a href='/account'>Account</a>
+          <br />
+          <br />
           <button onClick={logout}>Logout</button>
         </div>
-
-      ) : (
-        <button onClick={handleLogin}>Login</button>
       )}
     </div>
   );
