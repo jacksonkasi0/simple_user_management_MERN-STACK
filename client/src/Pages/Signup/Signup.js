@@ -32,7 +32,7 @@ const Signup = () => {
           authorization: localStorage.getItem('loginToken'),
         },
       });
-      alert(data.msg);
+      alert(data.message);
     } catch (error) {
       alert(error.message);
     }
